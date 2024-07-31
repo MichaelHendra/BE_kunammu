@@ -10,33 +10,17 @@ class Barang extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'kunam_id';
+    public $incrementing = false;
+    protected $keyType = 'string';
     protected static function boot() {
+        parent::boot();
         static::creating(function ($model) {
             if ( ! $model->getKey()) {
                 $model->{$model->getKeyName()} = (string) Str::uuid();
             }
         });
     }
-    /**
-     * Get the value indicating whether the IDs are incrementing.
-     *
-     * @return bool
-     */
-    public function getIncrementing()
-    {
-        return false;
-    }
-
-    /**
-     * Get the auto-incrementing key type.
-     *
-     * @return string
-     */
-    public function getKeyType()
-    {
-        return 'string';
-    }
-    protected $table = 'barangs';
     protected $fillable = ['nama_kunam','harga','deskripsi','stok','image'];
 
 }
