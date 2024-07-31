@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('kunam_id');
             $table->string('nama_kunam');
             $table->string('harga');
-            $table->text('desktipsi');
+            $table->text('deskripsi');
             $table->integer('stok');
             $table->string('image');
             $table->timestamps();
