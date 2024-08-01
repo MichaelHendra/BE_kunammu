@@ -9,5 +9,6 @@ class Cart extends Model
 {
     use HasFactory;
     protected $table = 'carts';
-    protected $fillable = ['transaksi_id','kunam_id','total_kunam'];
+    protected $primaryKey ='cart_id';
+    protected $fillable = ['kunam_id','user_id','total_kunam', 'valid'];
 }
