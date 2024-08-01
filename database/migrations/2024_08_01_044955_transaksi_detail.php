@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('carts', function(Blueprint $table){
-            $table->id('cart_id');
-            $table->string('kunam_id');
-            $table->integer('total_kunam');
-            $table->timestamps();
+        Schema::create('transaksi_details', function(Blueprint $table){
+            $table->id('tra_detail_id')->primary();
+            $table->string('transaksi_id');
+            $table->integer('cart_id');
         });
     }
 
@@ -24,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('carts');
+        Schema::dropIfExists('transaksi_details');
     }
 };
