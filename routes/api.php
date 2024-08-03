@@ -3,7 +3,6 @@
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
-use App\Models\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -13,6 +12,10 @@ Route::get('/user', function (Request $request) {
 
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
+
+Route::group(['middleware' => 'auth:api'], function(){
+    Route::post('/logout', [UserController::class, 'logout']);
+});
 
 Route::get('/barang', [BarangController::class, 'index']);
 Route::get('/barang/show/{id}', [BarangController::class, 'show']);
