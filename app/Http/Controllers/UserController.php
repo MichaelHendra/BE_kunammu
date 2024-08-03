@@ -52,5 +52,9 @@ class UserController extends Controller
             'token'   => $token
         ], 200);
     }
+    public function logout () {
+        auth()->logout();
+        return response()->json(['Message' => 'Logout Sukses']);
+    }
 
 }

@@ -4,12 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Barang;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 
 class BarangController extends Controller
 {
     public function index() {
-        $data = Barang::all();
+        // $data = Barang::all();
+        $data = Cache::remember('barang_all', 600, function(){
+            return Barang::all();
+        });
         return response()->json($data);
     }
 
@@ -35,6 +39,8 @@ class BarangController extends Controller
 
         $barang = Barang::create($validatedData);
 
+        Cache::forget('barang_all');
+
         return response()->json($barang, 201);
     }
 
@@ -56,6 +62,8 @@ class BarangController extends Controller
             $validatedData['image'] = $imagePath;
         }
         $data->Update($validatedData);
+        Cache::forget('barang_all');
+        Cache::forget("barang_{$id}");
         return response()->json($data);
     }
 
@@ -65,6 +73,9 @@ class BarangController extends Controller
             Storage::disk('public')->delete($data->image);
         }
         $data->delete();
+
+        Cache::forget('barang_all');
+        Cache::forget("barang_{$id}");
 
         return response()->json("Berhasil Dihapus");
     }
